@@ -14,4 +14,9 @@ class RssController(private val rssService: RssService) {
     fun fetchRssData(@RequestParam feedUrl: String) {
         rssService.fetchDataFromRss(feedUrl)
     }
+
+    @PostMapping("/getJson")
+    fun getJsonFromRss(@RequestParam feedUrl: String): String? {
+        return rssService.getJsonFromRss(feedUrl).toString()
+    }
 }

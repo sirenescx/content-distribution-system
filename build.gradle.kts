@@ -33,6 +33,8 @@ dependencies {
 	implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.3.0")
 	implementation("org.springframework.boot:spring-boot-starter-actuator")
 	implementation("com.rometools:rome:2.1.0")
+	implementation("org.json:json:20231013")
+	implementation("org.glassfish:javax.json:1.1.2")
 }
 
 tasks.withType<KotlinCompile> {
