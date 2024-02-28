@@ -1,0 +1,148 @@
+{
+  "rbc": {
+    "title": {
+      "map": [
+        {
+          "var": "rss.channel.item"
+        },
+        {
+          "var": "title"
+        }
+      ]
+    },
+    "link": {
+      "map": [
+        {
+          "var": "rss.channel.item"
+        },
+        {
+          "var": "link"
+        }
+      ]
+    },
+    "publicationDate": {
+      "map": [
+        {
+          "var": "rss.channel.item"
+        },
+        {
+          "var": "pubDate"
+        }
+      ]
+    },
+    "description": {
+      "map": [
+        {
+          "var": "rss.channel.item"
+        },
+        {
+          "var": "description"
+        }
+      ]
+    },
+    "category": {
+      "map": [
+        {
+          "var": "rss.channel.item"
+        },
+        {
+          "var": "category"
+        }
+      ]
+    },
+    "guid": {
+      "map": [
+        {
+          "var": "rss.channel.item"
+        },
+        {
+          "var": "guid.content"
+        }
+      ]
+    },
+    "pdaLink": {
+      "map": [
+        {
+          "var": "rss.channel.item"
+        },
+        {
+          "var": "rbc_news:pdalink"
+        }
+      ]
+    },
+    "fullText": {
+      "map": [
+        {
+          "var": "rss.channel.item"
+        },
+        {
+          "var": "rbc_news:full-text"
+        }
+      ]
+    },
+    "newsId": {
+      "map": [
+        {
+          "var": "rss.channel.item"
+        },
+        {
+          "var": "rbc_news:news_id"
+        }
+      ]
+    },
+    "tags": {
+      "map": [
+        {
+          "var": "rss.channel.item"
+        },
+        {
+          "var": "rbc_news:tag"
+        }
+      ]
+    },
+    "type": {
+      "map": [
+        {
+          "var": "rss.channel.item"
+        },
+        {
+          "var": "rbc_news:type"
+        }
+      ]
+    },
+    "newsLine": {
+      "map": [
+        {
+          "var": "rss.channel.item"
+        },
+        {
+          "var": "rbc_news:newsLine"
+        }
+      ]
+    },
+    "thumbnails": {
+      "map": [
+        {
+          "var": "rss.channel.item"
+        },
+        {
+          "var": "rbc_news:related_links"
+        },
+        {
+          "var": "link"
+        }
+      ]
+    }
+  }
+}
+
+{
+  "items": {
+    "expression": "/rss/channel/item",
+    "inner_mapping" {
+
+}
+  }
+
+}
+
