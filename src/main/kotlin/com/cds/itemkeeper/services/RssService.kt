@@ -60,7 +60,10 @@ class RssService(private val rssItemRepository: RssItemRepository) {
         val jsonReader = Json.createReader(feed)
         val jsonStructure = jsonReader.read()
         jsonReader.close()
+
         val mapping = MappingParser.parseMapping()["rbc"]!!
+
+        val x = jsonStructure.toString()
         return getValueFromJsonUsingPointers(mapping["tags"]!!, jsonStructure)
     }
 }

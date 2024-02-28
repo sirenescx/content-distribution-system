@@ -135,3 +135,14 @@
     }
   }
 }
+
+{
+  "items": {
+    "expression": "/rss/channel/item",
+    "inner_mapping" {
+
+}
+  }
+
+}
+
