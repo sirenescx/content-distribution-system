@@ -1,7 +1,7 @@
 # Content Distribution System as a Component of the Development of Social Mechanics in a Financial Application (Item Keeper Service)
 
 ## Problem Statement
-The key goal of this project is to develop a backend system for parsing RSS news data sources and creating selection of news articles from these parsed data.
+The main objective of this project is to develop a platform for managing news compilations or feeds that allows to retrieve articles from various data sources and store them for later distribution. The developed backend system serves as a centralized hub where publishers, content creators and consumers can access, organize and efficiently distribute news content.
 
 ## Author
 **Maria Manakhova**<br>
