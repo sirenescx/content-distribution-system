@@ -16,7 +16,7 @@ Telegram: [@Graph_AAC](https://t.me/Graph_AAC)<br>
 Mail: a.arakcheev@tinkoff.ru
 
 **Danzan Shurkaev**<br>
-[должность?]<br>
+Senior Software Engineer at Tinkoff<br>
 Telegram: [@DanzanSh](https://t.me/DanzanSh)<br>
 Mail: d.shurkaev@tinkoff.ru
 
