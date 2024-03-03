@@ -35,6 +35,7 @@ dependencies {
 	implementation("com.rometools:rome:2.1.0")
 	implementation("org.json:json:20231013")
 	implementation("org.glassfish:javax.json:1.1.2")
+	implementation("com.google.code.gson:gson:2.8.7")
 }
 
 tasks.withType<KotlinCompile> {

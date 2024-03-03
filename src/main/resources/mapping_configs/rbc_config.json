@@ -1,0 +1,40 @@
+{
+  "items": {
+    "expression": "rss.channel.item",
+    "inner_mappings": {
+      "title": {
+        "expression": "title"
+      },
+      "link": {
+        "expression": "link"
+      },
+      "publicationDate": {
+        "expression": "pubDate"
+      },
+      "description": {
+        "expression": "description"
+      },
+      "category": {
+        "expression": "category"
+      },
+      "guid": {
+        "expression": "guid.content"
+      },
+      "pdaLink": {
+        "expression": "rbc_news:pdalink"
+      },
+      "fullText": {
+        "expression": "rbc_news:full-text"
+      },
+      "newsId": {
+        "expression": "rbc_news:news_id"
+      },
+      "tags": {
+        "expression": "rbc_news:tag"
+      },
+      "newsLine": {
+        "expression": "rbc_news:newsLine"
+      }
+    }
+  }
+}

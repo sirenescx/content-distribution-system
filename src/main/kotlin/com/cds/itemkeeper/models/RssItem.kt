@@ -17,7 +17,8 @@ class RssItem(
     val fullText: String? = null,
     val newsId: String? = null,
     val type: String? = null,
-    val newsLine: String? = null,
+    @ElementCollection
+    val tags: List<String>? = null,
+    val newsLine: String? = null
     // created / updated / deleted ts
-    // <rbc_news:tag>
 )
