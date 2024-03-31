@@ -1,0 +1,28 @@
+# This file was generated. Do not edit manually.
+
+schema {
+    query: Query
+}
+
+type Query {
+    greeting(name: String): String
+}
+
+type RssItem {
+    category: String
+    createdAt: String!
+    deletedAt: String
+    description: String!
+    fullText: String
+    guid: String
+    id: ID!
+    link: String!
+    newsId: String
+    newsLine: String
+    pdaLink: String
+    publicationDate: String
+    tags: [String]
+    title: String!
+    type: String
+    updatedAt: String
+}
