@@ -6,6 +6,6 @@ import org.springframework.data.jpa.repository.Query
 import java.util.*
 
 interface RssItemRepository : JpaRepository<RssItem, UUID> {
-    @Query("SELECT item FROM RssItem item WHERE item.deletedAt IS NULL")
+    @Query("select item from RssItem item where item.deletedAt is null")
     fun findAllActive(): List<RssItem>
 }

@@ -8,9 +8,9 @@ import kotlin.io.path.Path
 
 class MappingParser {
     companion object {
-        fun parseMapping(configurationFileName: String = "rbc_config.json"): Mapping {
+        fun parseMapping(configurationFilename: String): Mapping {
             val inputStream = FileInputStream(
-                Path("src/main/resources/mapping_configs", configurationFileName).toString()
+                Path("src/main/resources/mapping_configs", configurationFilename).toString()
             )
             val jsonReader = Json.createReader(inputStream)
             val rawMapping = jsonReader.read().asJsonObject()

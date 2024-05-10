@@ -34,23 +34,9 @@ class DataFetchingJobConfig {
 
     @Bean
     fun scheduler(triggers: List<Trigger>, jobDetails: List<JobDetail>, factory: SchedulerFactoryBean): Scheduler {
-//        factory.setWaitForJobsToCompleteOnShutdown(true)
         val scheduler = factory.scheduler
-//        factory.setOverwriteExistingJobs(true)
-//        factory.setTransactionManager(JdbcTransactionManager())
-//        rescheduleTriggers(triggers, scheduler)
         scheduler.start()
         return scheduler
     }
-
-//    private fun rescheduleTriggers(triggers: List<Trigger>, scheduler: Scheduler) {
-//        triggers.forEach {
-//            if (!scheduler.checkExists(it.key)) {
-//                scheduler.scheduleJob(it)
-//            } else {
-//                scheduler.rescheduleJob(it.key, it)
-//            }
-//        }
-//    }
 }
 

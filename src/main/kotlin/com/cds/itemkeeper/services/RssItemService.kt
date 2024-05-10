@@ -9,20 +9,21 @@ import com.rometools.rome.io.XmlReader
 import org.json.XML
 import org.springframework.stereotype.Service
 import java.net.URI
+import java.util.*
 import javax.json.*
 
 
 @Service
-class RssService(private val rssItemRepository: RssItemRepository) {
-    fun getJsonFromRss(feedUrl: String) {
+class RssItemService(private val rssItemRepository: RssItemRepository) {
+    fun getItems(feedUrl: String, configurationFilename: String, sourceId: UUID) {
         val feed = XML.toJSONObject(XmlReader(URI(feedUrl).toURL())).toString().byteInputStream()
         val jsonReader = Json.createReader(feed)
         val jsonStructure = jsonReader.read()
         jsonReader.close()
 
-        val mapping = MappingParser.parseMapping()
+        val mapping = MappingParser.parseMapping(configurationFilename)
         val rssItems = mutableListOf<RssItem>()
-        for (json in JsonPointerFetcher.fetchDataFromRss(mapping, jsonStructure)) {
+        for (json in JsonPointerFetcher.fetchDataFromRss(sourceId, mapping, jsonStructure)) {
             rssItems.add(Gson().fromJson(json, RssItem::class.java))
         }
 

@@ -8,7 +8,8 @@ schema {
 type Query {
     rssItems: [RssItem]
     rssItemById(id: String!): RssItem
-    greeting(name: String): String
+    sources: [Source]
+    sourceByName(name: String!): Source
 }
 
 type Mutation {
@@ -21,6 +22,19 @@ type Mutation {
     deleteRssItem(
         id: ID!
     ): RssItem
+
+    createSource(
+        name: String!,
+        link: String!,
+        configurationFilename: String!
+    ): Source
+}
+
+type Source {
+    id: ID!
+    name: String!
+    link: String!
+    configurationFilename: String!
 }
 
 type RssItem {

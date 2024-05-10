@@ -16,7 +16,7 @@ import kotlin.reflect.jvm.javaType
 
 class JsonPointerFetcher {
     companion object {
-        fun fetchDataFromRss(mapping: Mapping, rawJson: JsonStructure): List<String> {
+        fun fetchDataFromRss(sourceId: UUID, mapping: Mapping, rawJson: JsonStructure): List<String> {
             val rawItems = getJsonArray(mapping.rootExpression, rawJson)
             val innerExpressionsKeys = mapping.innerExpressions.keys
             val parsedFields = mutableMapOf<String, List<Any?>>()
@@ -31,10 +31,11 @@ class JsonPointerFetcher {
                 }
             }
 
-            return convertParsedDataToJsonList(parsedFields, rawItems.asJsonArray().size)
+            return convertParsedDataToJsonList(sourceId, parsedFields, rawItems.asJsonArray().size)
         }
 
         private fun convertParsedDataToJsonList(
+            sourceId: UUID,
             parsedFields: Map<String, List<Any?>>,
             objectsCount: Int
         ): List<String> {
@@ -46,6 +47,7 @@ class JsonPointerFetcher {
                 for (key in parsedFields.keys) {
                     json[key] = parsedFields[key]!![index]!!
                 }
+                json["sourceId"] = sourceId
                 jsons.add(gson.toJson(json))
             }
 

@@ -1,3 +1,11 @@
+create table sources
+(
+    id                      uuid primary key default gen_random_uuid(),
+    name                    varchar(256) not null,
+    link                    varchar(256) not null,
+    configuration_filename  varchar(256) not null
+);
+
 create table items
 (
     id               uuid primary key default gen_random_uuid(),
@@ -15,5 +23,7 @@ create table items
     news_line        varchar(256),
     created_at       timestamp,
     updated_at       timestamp,
-    deleted_at       timestamp
-)
+    deleted_at       timestamp,
+    source_id        uuid,
+    foreign key(source_id) references sources(id)
+);

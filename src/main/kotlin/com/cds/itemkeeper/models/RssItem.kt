@@ -25,9 +25,9 @@ class RssItem {
     @Column(name = "link", nullable = false, length = 256)
     lateinit var link: String
 
-//    @Basic
-//    @Column(name = "source", nullable = false, length = 256)
-//    lateinit var source: String
+    @Basic
+    @Column(name = "source_id", nullable = false, length = 256)
+    lateinit var sourceId: UUID
 
     @Basic
     @Column(name = "publication_date")
