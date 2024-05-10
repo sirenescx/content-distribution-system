@@ -32,8 +32,11 @@
       "tags": {
         "expression": "rbc_news:tag"
       },
+      "type": {
+        "expression": "rbc_news:type"
+      },
       "newsLine": {
-        "expression": "rbc_news:newsLine"
+        "expression": "rbc_news:newsline"
       }
     }
   }
