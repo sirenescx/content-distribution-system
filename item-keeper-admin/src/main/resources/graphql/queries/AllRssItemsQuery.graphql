@@ -1,0 +1,6 @@
+query allRssItems {
+    rssItems {
+        id
+        description
+    }
+}
