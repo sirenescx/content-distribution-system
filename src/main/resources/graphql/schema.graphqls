@@ -2,10 +2,25 @@
 
 schema {
     query: Query
+    mutation: Mutation
 }
 
 type Query {
+    rssItems: [RssItem]
+    rssItemById(id: String!): RssItem
     greeting(name: String): String
+}
+
+type Mutation {
+    updateRssItem(
+        id: ID!,
+        title: String!,
+        description: String!
+    ): RssItem
+
+    deleteRssItem(
+        id: ID!
+    ): RssItem
 }
 
 type RssItem {

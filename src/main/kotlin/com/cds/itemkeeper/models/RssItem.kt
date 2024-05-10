@@ -25,6 +25,10 @@ class RssItem {
     @Column(name = "link", nullable = false, length = 256)
     lateinit var link: String
 
+//    @Basic
+//    @Column(name = "source", nullable = false, length = 256)
+//    lateinit var source: String
+
     @Basic
     @Column(name = "publication_date")
     var publicationDate: Date? = null
@@ -73,9 +77,9 @@ class RssItem {
     @Basic
     @UpdateTimestamp
     @Column(name = "updated_at")
-    val updatedAt: Timestamp? = null
+    var updatedAt: Timestamp? = null
 
     @Basic
     @Column(name = "deleted_at")
-    val deletedAt: Timestamp? = null
+    var deletedAt: Timestamp? = null
 }
