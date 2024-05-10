@@ -6,10 +6,11 @@ schema {
 }
 
 type Query {
+    rssItem(id: String!): RssItem
     rssItems: [RssItem]
-    rssItemById(id: String!): RssItem
-    sources: [Source]
+    rssItemsBySourceId(sourceId: ID!): [RssItem]
     sourceByName(name: String!): Source
+    sources: [Source]
 }
 
 type Mutation {
@@ -27,6 +28,15 @@ type Mutation {
         name: String!,
         link: String!,
         configurationFilename: String!
+    ): Source
+
+    updateSource(
+        id: ID!,
+        sourceInput: SourceInput
+    ): Source
+
+    deleteSource(
+        id: ID!
     ): Source
 }
 
@@ -54,4 +64,10 @@ type RssItem {
     title: String!
     type: String
     updatedAt: String
+}
+
+input SourceInput {
+    name: String,
+    link: String,
+    configurationFilename: String
 }

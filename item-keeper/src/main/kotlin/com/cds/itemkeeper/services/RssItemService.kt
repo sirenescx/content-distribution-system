@@ -9,13 +9,14 @@ import com.rometools.rome.io.XmlReader
 import org.json.XML
 import org.springframework.stereotype.Service
 import java.net.URI
+import java.sql.Timestamp
 import java.util.*
 import javax.json.*
 
 
 @Service
 class RssItemService(private val rssItemRepository: RssItemRepository) {
-    fun getItems(feedUrl: String, configurationFilename: String, sourceId: UUID) {
+    fun saveParsedItems(feedUrl: String, configurationFilename: String, sourceId: UUID) {
         val feed = XML.toJSONObject(XmlReader(URI(feedUrl).toURL())).toString().byteInputStream()
         val jsonReader = Json.createReader(feed)
         val jsonStructure = jsonReader.read()
@@ -27,10 +28,18 @@ class RssItemService(private val rssItemRepository: RssItemRepository) {
             rssItems.add(Gson().fromJson(json, RssItem::class.java))
         }
 
-        rssItemRepository.saveAll(rssItems)
+        saveWithoutDuplicates(rssItems)
     }
 
-    fun getAllItems(): List<RssItem> {
-        return rssItemRepository.findAll()
+    fun saveWithoutDuplicates(rssItems: List<RssItem>) {
+        for (rssItem in rssItems) {
+            val existingRssItem = rssItemRepository.findByGuid(rssItem.guid)
+            if (existingRssItem == null) {
+                rssItemRepository.save(rssItem)
+            } else {
+                existingRssItem.updatedAt = Timestamp(System.currentTimeMillis())
+                rssItemRepository.save(existingRssItem)
+            }
+        }
     }
 }

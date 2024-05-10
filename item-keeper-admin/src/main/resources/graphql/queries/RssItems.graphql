@@ -1,4 +1,4 @@
-query allRssItems {
+query getRssItems {
     rssItems {
         id
         description

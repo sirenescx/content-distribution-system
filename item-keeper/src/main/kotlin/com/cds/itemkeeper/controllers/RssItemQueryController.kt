@@ -1,9 +1,10 @@
-package com.cds.itemkeeper.queries
+package com.cds.itemkeeper.controllers
 
 import com.cds.itemkeeper.models.RssItem
 import com.cds.itemkeeper.repositories.RssItemRepository
 import com.expediagroup.graphql.generator.annotations.GraphQLDescription
 import com.expediagroup.graphql.server.operations.Query
+import org.springframework.data.repository.findByIdOrNull
 import org.springframework.graphql.data.method.annotation.Argument
 import org.springframework.graphql.data.method.annotation.MutationMapping
 import org.springframework.graphql.data.method.annotation.QueryMapping
@@ -12,7 +13,7 @@ import java.sql.Timestamp
 import java.util.*
 
 @Controller
-class RssItemQuery(private val rssItemRepository: RssItemRepository) : Query {
+class RssItemQueryController(private val rssItemRepository: RssItemRepository) : Query {
     @QueryMapping("rssItems")
     @GraphQLDescription("Returns all rss items")
     fun getRssItems(): List<RssItem> = rssItemRepository.findAllActive()
@@ -20,6 +21,10 @@ class RssItemQuery(private val rssItemRepository: RssItemRepository) : Query {
     @QueryMapping("rssItemById")
     @GraphQLDescription("Returns rss item by id")
     fun getRssItemById(@Argument id: UUID): RssItem = rssItemRepository.findById(id).orElse(null)
+
+    @QueryMapping("rssItemsBySourceId")
+    @GraphQLDescription("Returns rss items by id of the source")
+    fun getRssItemsBySourceId(@Argument sourceId: UUID): List<RssItem> = rssItemRepository.findAllActive().filter { it.sourceId == sourceId }
 
     @MutationMapping("updateRssItem")
     @GraphQLDescription("Updates rss item")
@@ -38,7 +43,7 @@ class RssItemQuery(private val rssItemRepository: RssItemRepository) : Query {
     // return status code 200 if deleted ok
     // return 404 if not found by id
     fun deleteRssItem(@Argument id: UUID): RssItem? {
-        val rssItem = rssItemRepository.findById(id).orElse(null) ?: return null
+        val rssItem = rssItemRepository.findByIdOrNull(id) ?: return null
 
         rssItem.deletedAt = Timestamp(System.currentTimeMillis())
 

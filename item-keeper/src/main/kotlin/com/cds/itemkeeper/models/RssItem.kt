@@ -42,8 +42,8 @@ class RssItem {
     var category: String? = null
 
     @Basic
-    @Column(name = "guid", length = 128)
-    var guid: String? = null
+    @Column(name = "guid", length = 128, nullable = false)
+    lateinit var guid: String
 
     @Basic
     @Column(name = "pda_link", length = 256)
