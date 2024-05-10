@@ -4,9 +4,10 @@ import com.expediagroup.graphql.plugin.gradle.graphql
 plugins {
 	id("org.springframework.boot") version "3.2.2"
 	id("io.spring.dependency-management") version "1.1.4"
-	id("com.expediagroup.graphql") version "7.0.0"
+	id("com.expediagroup.graphql") version "7.1.1"
 	kotlin("jvm") version "1.9.22"
 	kotlin("plugin.spring") version "1.9.22"
+	kotlin("plugin.noarg") version "1.9.24"
 }
 
 group = "com.cds"
@@ -27,9 +28,14 @@ graphql {
 	}
 }
 
+noArg {
+	annotation("com.cds.itemkeeperadmin.utils.NoArg")
+}
+
 dependencies {
 	implementation("org.springframework.boot", "spring-boot-starter-graphql")
-	implementation("com.expediagroup", "graphql-kotlin-spring-client", "7.0.0")
+	implementation("com.expediagroup", "graphql-kotlin-spring-client", "7.1.1")
+	implementation("com.graphql-java-kickstart", "graphql-java-tools", "13.1.1")
 	implementation("org.springframework.boot", "spring-boot-starter-web")
 	implementation("com.fasterxml.jackson.module", "jackson-module-kotlin")
 	runtimeOnly("io.micrometer", "micrometer-registry-prometheus")
@@ -40,7 +46,7 @@ dependencies {
 	implementation("org.springframework.boot", "spring-boot-starter-actuator")
 	implementation("org.json", "json", "20231013")
 	implementation("org.glassfish", "javax.json", "1.1.2")
-
+	implementation("org.modelmapper", "modelmapper", "3.2.0")
 }
 
 tasks.withType<KotlinCompile> {

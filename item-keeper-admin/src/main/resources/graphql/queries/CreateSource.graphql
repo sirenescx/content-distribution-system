@@ -1,0 +1,8 @@
+mutation createSource($name: String!, $link: String!, $configurationFilename: String!) {
+    createSource(name: $name, link: $link, configurationFilename: $configurationFilename) {
+        id
+        name
+        link
+        configurationFilename
+    }
+}

@@ -1,0 +1,7 @@
+mutation updateSource($id: ID!, $sourceInput: SourceInput) {
+    updateSource(id: $id, sourceInput: $sourceInput) {
+        name
+        link
+        configurationFilename
+    }
+}

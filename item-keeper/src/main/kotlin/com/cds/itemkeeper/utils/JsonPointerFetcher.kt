@@ -114,7 +114,7 @@ class JsonPointerFetcher {
                     }
                 }
             } catch (ex: Exception) {
-                println()
+                return null
             }
             return null
         }

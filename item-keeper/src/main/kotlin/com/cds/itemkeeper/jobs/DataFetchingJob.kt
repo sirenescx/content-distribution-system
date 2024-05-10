@@ -12,7 +12,7 @@ class DataFetchingJob(private val rssItemService: RssItemService, private val so
         println("It's working")
         val sources = sourceService.getSources()
         for (source in sources) {
-            rssItemService.getItems(source.link, source.configurationFilename, source.id)
+            rssItemService.saveParsedItems(source.link, source.configurationFilename, source.id)
         }
     }
 }

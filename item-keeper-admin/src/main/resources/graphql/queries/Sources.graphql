@@ -1,4 +1,4 @@
-query allSources {
+query getSources {
     sources {
         id
         name
