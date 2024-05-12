@@ -1,0 +1,7 @@
+query getBannedSources {
+    bannedSources {
+        id
+        name
+        link
+    }
+}

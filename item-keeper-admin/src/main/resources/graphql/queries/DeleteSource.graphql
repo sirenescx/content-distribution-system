@@ -3,5 +3,6 @@ mutation deleteSource($id: ID!) {
         id
         name
         link
+        deletedAt
     }
 }

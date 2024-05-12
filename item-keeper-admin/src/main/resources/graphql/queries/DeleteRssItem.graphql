@@ -1,5 +1,5 @@
-query getRssItems {
-    rssItems {
+mutation deleteRssItem($id: ID!) {
+    deleteRssItem(id: $id) {
         id
         title
         link
@@ -14,5 +14,6 @@ query getRssItems {
         type
         tags
         newsLine
+        deletedAt
     }
 }

@@ -1,6 +1,7 @@
 package com.cds.itemkeeper.controllers
 
 import com.cds.itemkeeper.models.RssItem
+import com.cds.itemkeeper.models.RssItemInput
 import com.cds.itemkeeper.repositories.RssItemRepository
 import com.expediagroup.graphql.generator.annotations.GraphQLDescription
 import com.expediagroup.graphql.server.operations.Query
@@ -15,7 +16,7 @@ import java.util.*
 @Controller
 class RssItemQueryController(private val rssItemRepository: RssItemRepository) : Query {
     @QueryMapping("rssItems")
-    @GraphQLDescription("Returns all rss items")
+    @GraphQLDescription("Returns all active (not deleted) rss items")
     fun getRssItems(): List<RssItem> = rssItemRepository.findAllActive()
 
     @QueryMapping("rssItemById")
@@ -24,29 +25,79 @@ class RssItemQueryController(private val rssItemRepository: RssItemRepository) :
 
     @QueryMapping("rssItemsBySourceId")
     @GraphQLDescription("Returns rss items by id of the source")
-    fun getRssItemsBySourceId(@Argument sourceId: UUID): List<RssItem> = rssItemRepository.findAllActive().filter { it.sourceId == sourceId }
+    fun getRssItemsBySourceId(@Argument sourceId: UUID): List<RssItem> {
+        return rssItemRepository.findAllActive().filter { it.sourceId == sourceId }
+    }
 
     @MutationMapping("updateRssItem")
     @GraphQLDescription("Updates rss item")
-    // return 404 if not found by id
-    fun updateRssItem(@Argument id: UUID, @Argument title: String, @Argument description: String): RssItem? {
-        val rssItem = rssItemRepository.findById(id).orElse(null) ?: return null
+    fun updateRssItem(@Argument id: UUID, @Argument rssItemInput: RssItemInput?): RssItem? {
+        val rssItem = rssItemRepository.findById(id).orElse(null) ?: throw Exception("Item does not exist")
 
-        rssItem.title = title
-        rssItem.description = description
+        if (rssItemInput == null) {
+            return rssItem
+        }
+
+        if (rssItemInput.title != null) {
+            rssItem.title = rssItemInput.title!!
+        }
+
+        if (rssItemInput.description != null) {
+            rssItem.description = rssItemInput.description!!
+        }
+
+        if (rssItemInput.link != null) {
+            rssItem.link = rssItemInput.link!!
+        }
+
+        if (rssItemInput.category != null) {
+            rssItem.category = rssItemInput.category!!
+        }
+
+        if (rssItemInput.pdaLink != null) {
+            rssItem.pdaLink = rssItemInput.pdaLink!!
+        }
+
+        if (rssItemInput.fullText != null) {
+            rssItem.fullText = rssItemInput.fullText!!
+        }
+
+        if (rssItemInput.tags != null) {
+            rssItem.tags = rssItemInput.tags!!
+        }
+
+        if (rssItemInput.newsLine != null) {
+            rssItem.newsLine = rssItemInput.newsLine!!
+        }
 
         return rssItemRepository.save(rssItem)
     }
 
     @MutationMapping("deleteRssItem")
     @GraphQLDescription("Soft deleted rss item")
-    // return status code 200 if deleted ok
-    // return 404 if not found by id
     fun deleteRssItem(@Argument id: UUID): RssItem? {
-        val rssItem = rssItemRepository.findByIdOrNull(id) ?: return null
+        val rssItem = rssItemRepository.findByIdOrNull(id) ?: throw Exception("Item does not exist")
 
         rssItem.deletedAt = Timestamp(System.currentTimeMillis())
 
         return rssItemRepository.save(rssItem)
+    }
+
+    @QueryMapping("rssItemsByPublicationDate")
+    @GraphQLDescription("Returns rss items by publicationDate")
+    fun getRssItemsByPublicationDate(@Argument publicationDate: Date): List<RssItem>? {
+        return rssItemRepository.findAllActive().filter { it.publicationDate == publicationDate }
+    }
+
+    @QueryMapping("rssItemsBeforeDate")
+    @GraphQLDescription("Returns rss items published before specified date")
+    fun getRssItemsBeforeDate(@Argument date: Date): List<RssItem>? {
+        return rssItemRepository.findAllActive().filter { (it.publicationDate?.compareTo(date) ?: 0) < 0 }
+    }
+
+    @QueryMapping("rssItemsAfterDate")
+    @GraphQLDescription("Returns rss items published after specified date")
+    fun getRssItemsAfterDate(@Argument date: Date): List<RssItem>? {
+        return rssItemRepository.findAllActive().filter { (it.publicationDate?.compareTo(date) ?: 0) > 0 }
     }
 }

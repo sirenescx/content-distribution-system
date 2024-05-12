@@ -1,12 +1,18 @@
-query getRssItemsBySourceId($id: ID!) {
-    rssItemsBySourceId(sourceId: $id) {
+query getRssItemsBySourceId($sourceId: ID!) {
+    rssItemsBySourceId(sourceId: $sourceId) {
         id
-        description
-        createdAt
-        link
         title
+        link
+        sourceId
         publicationDate
+        description
+        category
+        guid
+        pdaLink
+        fullText
+        newsId
+        type
+        tags
+        newsLine
     }
 }
-
-#rssItemsBySourceId(sourceId: ID!): [RssItem]

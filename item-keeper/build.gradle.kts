@@ -37,7 +37,7 @@ dependencies {
     implementation("org.glassfish", "javax.json", "1.1.2")
     implementation("com.google.code.gson", "gson","2.9.1")
     implementation("io.hypersistence", "hypersistence-utils-hibernate-63","3.7.3")
-
+    implementation("com.graphql-java", "graphql-java-extended-scalars", "21.0")
 }
 
 tasks.withType<KotlinCompile> {

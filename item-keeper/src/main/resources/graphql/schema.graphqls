@@ -6,18 +6,22 @@ schema {
 }
 
 type Query {
-    rssItem(id: String!): RssItem
+    rssItemById(id: ID!): RssItem
     rssItems: [RssItem]
     rssItemsBySourceId(sourceId: ID!): [RssItem]
+    rssItemsByPublicationDate(publicationDate: Date): [RssItem]
+    rssItemsBeforeDate(date: Date): [RssItem]
+    rssItemsAfterDate(date: Date): [RssItem]
+    sourceById(id: ID!): Source
     sourceByName(name: String!): Source
     sources: [Source]
+    bannedSources: [Source]
 }
 
 type Mutation {
     updateRssItem(
         id: ID!,
-        title: String!,
-        description: String!
+        rssItemInput: RssItemInput
     ): RssItem
 
     deleteRssItem(
@@ -38,6 +42,14 @@ type Mutation {
     deleteSource(
         id: ID!
     ): Source
+
+    banSource(
+        id: ID!
+    ): Source
+
+    unbanSource(
+        id: ID!
+    ): Source
 }
 
 type Source {
@@ -45,17 +57,18 @@ type Source {
     name: String!
     link: String!
     configurationFilename: String!
+    deletedAt: String
+    isBanned: Boolean
 }
 
 type RssItem {
     category: String
-    createdAt: String!
-    deletedAt: String
     description: String!
     fullText: String
     guid: String
     id: ID!
     link: String!
+    sourceId: ID!
     newsId: String
     newsLine: String
     pdaLink: String
@@ -63,6 +76,8 @@ type RssItem {
     tags: [String]
     title: String!
     type: String
+    createdAt: String!
+    deletedAt: String
     updatedAt: String
 }
 
@@ -71,3 +86,16 @@ input SourceInput {
     link: String,
     configurationFilename: String
 }
+
+input RssItemInput {
+    title: String,
+    link: String,
+    description: String,
+    category: String,
+    pdaLink: String,
+    fullText: String,
+    tags: [String],
+    newsLine: String
+}
+
+scalar Date

@@ -1,5 +1,5 @@
-query getRssItems {
-    rssItems {
+mutation updateRssItem($id: ID!, $rssItemInput: RssItemInput) {
+    updateRssItem(id: $id, rssItemInput: $rssItemInput) {
         id
         title
         link

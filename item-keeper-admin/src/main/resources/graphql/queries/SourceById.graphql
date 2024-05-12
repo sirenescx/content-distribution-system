@@ -1,0 +1,7 @@
+query getSourceById($id: ID!) {
+    sourceById(id: $id) {
+        id
+        name
+        link
+    }
+}

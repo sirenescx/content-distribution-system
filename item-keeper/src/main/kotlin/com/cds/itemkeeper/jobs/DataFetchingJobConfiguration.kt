@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component
 @Configuration
 class DataFetchingJobConfig {
     @Value("#{environment['spring.quartz.properties.cron-expression']}")
-    val cronExpression: String = ""
+    lateinit var cronExpression: String
 
     @Bean
     fun dataFetchingJobDetail(): JobDetail {

@@ -47,6 +47,7 @@ dependencies {
 	implementation("org.json", "json", "20231013")
 	implementation("org.glassfish", "javax.json", "1.1.2")
 	implementation("org.modelmapper", "modelmapper", "3.2.0")
+	implementation("com.graphql-java", "graphql-java-extended-scalars", "21.0")
 }
 
 tasks.withType<KotlinCompile> {

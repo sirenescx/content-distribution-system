@@ -1,0 +1,8 @@
+mutation banSource($id: ID!) {
+    banSource(id: $id) {
+        id
+        name
+        link
+        isBanned
+    }
+}

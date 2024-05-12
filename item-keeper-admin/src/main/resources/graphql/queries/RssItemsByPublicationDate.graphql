@@ -1,5 +1,5 @@
-query getRssItems {
-    rssItems {
+query getRssItemsByPublicationDate($publicationDate: Date!) {
+    rssItemsByPublicationDate(publicationDate: $publicationDate) {
         id
         title
         link

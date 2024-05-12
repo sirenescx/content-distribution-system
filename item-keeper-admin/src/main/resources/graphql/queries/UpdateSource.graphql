@@ -1,5 +1,6 @@
 mutation updateSource($id: ID!, $sourceInput: SourceInput) {
     updateSource(id: $id, sourceInput: $sourceInput) {
+        id
         name
         link
         configurationFilename

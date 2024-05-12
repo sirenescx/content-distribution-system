@@ -1,0 +1,8 @@
+mutation unbanSource($id: ID!) {
+    unbanSource(id: $id) {
+        id
+        name
+        link
+        isBanned
+    }
+}
