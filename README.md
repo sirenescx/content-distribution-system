@@ -1,4 +1,4 @@
-# Content Distribution System as a Component of the Development of Social Mechanics in a Financial Application (Item Keeper Service)
+# Content Distribution System as a Component of the Development of Social Mechanics in a Financial Application
 
 ## Problem Statement
 The main objective of this project is to develop a platform for managing news compilations or feeds that allows to retrieve articles from various data sources and store them for later distribution. The developed backend system serves as a centralized hub where publishers, content creators and consumers can access, organize and efficiently distribute news content.
@@ -29,7 +29,7 @@ Mail: d.shurkaev@tinkoff.ru
 | Development of a service for creating news articles selection (Item Keeper Admin): development of GraphQL resolver, Swagger UI.               | 25th of March, 2024    |
 | Containerisation of a backend system with Docker. Minor services improvement.                                                                 | 15th of April, 2024    |
 | Finalization of web services development. Testing of the developed backend system.                                                            | 1st of May, 2024       |
-| Minor bug fixes. Development of a project documentation.                                                                                      | 10th of June, 2024     |
+| Minor bug fixes. Development of a project documentation.                                                                                      | 29th of May, 2024     |
 
 
 ## Description of Used Data
@@ -46,10 +46,10 @@ The common data that is provided in RSS files:
    * guid
 
 Depending on the source, RSS files could also contain:
-   * full text of the news article
-   * identifier of the news article
-   * tags related to key details of the news article
-   * and much more
+* full text of the news article
+* identifier of the news article
+* tags related to key details of the news article
+* and much more
 
 The frequency of data updates depends on the source.
 
@@ -61,16 +61,19 @@ The final product is a backend system consisting of two web services:
 ### 1. Item Keeper service
 Item Keeper is a service that is required for parsing data from RSS files of news sources by a cron job and storing parsed data in PostgreSQL database.
 
-**Technology Stack:** 
+**Technology Stack:**
 * Programming Languages: Kotlin, GraphQL
-* Frameworks: Spring, gRPC, Quartz
+* Frameworks: Spring, Quartz
 * Database: PostgreSQL
-* Other: Rome, Spring Data JPA, JSON Processing API, Docker
+* Other: Spring Data JPA, JSON Processing API, Docker
 
 ### 2. Item Keeper Admin service
 This service is required for creating selection of news articles from the data provided by Item Keeper service.
 
+**Database scheme**
+![Scheme](database_scheme.png)
+
 **Technology Stack:**
 * Programming Languages: Kotlin, GraphQL
-* Frameworks: Spring, gRPC
-* Other: Swagger, Docker
+* Frameworks: Spring Boot, Quartz
+* Other: Swagger, Docker, Grafana, Prometheus, Gradle
