@@ -16,4 +16,7 @@ interface SourceRepository : JpaRepository<Source, UUID> {
 
     @Query("select source from Source source where source.deletedAt is null and source.isBanned = true")
     fun findAllBanned(): List<Source>
+
+    @Query("select source from Source source where source.deletedAt is not null")
+    fun findAllWithoutDeleted(): List<Source>
 }

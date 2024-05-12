@@ -6,6 +6,7 @@ import org.hibernate.annotations.Type
 import org.hibernate.annotations.UpdateTimestamp
 import org.springframework.data.annotation.CreatedDate
 import java.sql.Timestamp
+import java.time.LocalDate
 import java.util.*
 
 
@@ -31,7 +32,7 @@ class RssItem {
 
     @Basic
     @Column(name = "publication_date")
-    var publicationDate: Date? = null
+    var publicationDate: LocalDate? = null
 
     @Basic
     @Column(name = "description", nullable = false, columnDefinition = "text")

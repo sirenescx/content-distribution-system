@@ -8,6 +8,6 @@ import org.springframework.stereotype.Service
 @Service
 class SourceService(private val sourceRepository: SourceRepository) {
     fun getSources() : List<Source> {
-        return sourceRepository.findAll()
+        return sourceRepository.findAllWithoutDeleted()
     }
 }

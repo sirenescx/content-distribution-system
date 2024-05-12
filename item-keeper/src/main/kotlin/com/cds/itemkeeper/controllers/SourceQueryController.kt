@@ -101,7 +101,7 @@ class SourceQueryController(private val sourceRepository: SourceRepository) : Qu
     @GraphQLDescription("Unbans existing source")
     fun unbanSource(@Argument id: UUID): Source {
         val source = sourceRepository.findByIdOrNull(id) ?: throw Exception("Source doesn't exists")
-        if (source.isBanned) {
+        if (!source.isBanned) {
             throw Exception("Source is not banned")
         }
 

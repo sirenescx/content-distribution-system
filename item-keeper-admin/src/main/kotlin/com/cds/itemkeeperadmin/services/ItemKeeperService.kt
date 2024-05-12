@@ -6,6 +6,7 @@ import com.cds.itemkeeperadmin.models.RssItem
 import com.cds.itemkeeperadmin.models.Source
 import org.modelmapper.ModelMapper
 import org.springframework.stereotype.Service
+import java.time.LocalDate
 import java.util.*
 
 @Service
@@ -22,16 +23,16 @@ class ItemKeeperService(private val itemKeeperClient: ItemKeeperClient, private 
         return itemKeeperClient.getRssItemsBySourceId(sourceId)?.map { modelMapper.map(it, RssItem::class.java) }
     }
 
-    fun getRssItemsByPublicationDate(publicationDate: Date): List<RssItem>? {
+    fun getRssItemsByPublicationDate(publicationDate: LocalDate): List<RssItem>? {
         return itemKeeperClient.getRssItemsByPublicationDate(publicationDate.toString())
             ?.map { modelMapper.map(it, RssItem::class.java) }
     }
 
-    fun getRssItemsBeforeDate(date: Date): List<RssItem>? {
+    fun getRssItemsBeforeDate(date: LocalDate): List<RssItem>? {
         return itemKeeperClient.getRssItemsBeforeDate(date.toString())?.map { modelMapper.map(it, RssItem::class.java) }
     }
 
-    fun getRssItemsAfterDate(date: Date): List<RssItem>? {
+    fun getRssItemsAfterDate(date: LocalDate): List<RssItem>? {
         return itemKeeperClient.getRssItemsAfterDate(date.toString())?.map { modelMapper.map(it, RssItem::class.java) }
     }
 

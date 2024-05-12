@@ -6,9 +6,9 @@ import java.util.UUID
 
 @NoArg
 data class RssItem(
-    val id: UUID,
-    val title: String,
-    val link: String,
+    val id: UUID?,
+    val title: String?,
+    val link: String?,
     val sourceId: String?,
     val publicationDate: String?,
     val description: String?,
@@ -20,5 +20,5 @@ data class RssItem(
     val type: String?,
     val tags: Array<String>?,
     val newsLine: String?,
-    val deletedAt: Timestamp
+    val deletedAt: Timestamp?
 )

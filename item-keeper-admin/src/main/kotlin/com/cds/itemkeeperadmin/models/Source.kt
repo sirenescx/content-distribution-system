@@ -6,10 +6,10 @@ import java.util.*
 
 @NoArg
 data class Source(
-    val id: UUID,
-    val name: String,
-    val link: String,
-    val configurationFilename: String,
-    val deletedAt: Timestamp,
-    val isBanned: Boolean
+    val id: UUID?,
+    val name: String?,
+    val link: String?,
+    val configurationFilename: String?,
+    val deletedAt: Timestamp?,
+    val isBanned: Boolean?
 )

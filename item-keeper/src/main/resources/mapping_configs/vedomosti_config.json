@@ -1,0 +1,26 @@
+{
+  "items": {
+    "expression": "rss.channel.item",
+    "inner_mappings": {
+      "title": {
+        "expression": "title"
+      },
+      "link": {
+        "expression": "link"
+      },
+      "publicationDate": {
+        "expression": "pubDate"
+      },
+      "category": {
+        "expression": "category"
+      },
+      "guid": {
+        "expression": "guid"
+      },
+      "pdaLink": {
+        "expression": "pdalink"
+      }
+    }
+  }
+}
+

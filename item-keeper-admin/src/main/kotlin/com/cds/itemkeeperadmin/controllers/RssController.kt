@@ -5,6 +5,7 @@ import com.cds.itemkeeperadmin.models.RssItem
 import com.cds.itemkeeperadmin.models.Source
 import com.cds.itemkeeperadmin.services.ItemKeeperService
 import org.springframework.web.bind.annotation.*
+import java.time.LocalDate
 import java.util.*
 
 
@@ -27,17 +28,17 @@ class RssController(private val itemKeeperService: ItemKeeperService) {
     }
 
     @GetMapping("/getItemsByPublicationDate")
-    fun getRssItemsByPublicationDate(publicationDate: Date): List<RssItem>? {
+    fun getRssItemsByPublicationDate(publicationDate: LocalDate): List<RssItem>? {
         return itemKeeperService.getRssItemsByPublicationDate(publicationDate)
     }
 
     @GetMapping("/getItemsBeforeDate")
-    fun getRssItemsBeforeDate(date: Date): List<RssItem>? {
+    fun getRssItemsBeforeDate(date: LocalDate): List<RssItem>? {
         return itemKeeperService.getRssItemsBeforeDate(date)
     }
 
     @GetMapping("/getItemsAfterDate")
-    fun getRssItemsAfterDate(date: Date): List<RssItem>? {
+    fun getRssItemsAfterDate(date: LocalDate): List<RssItem>? {
         return itemKeeperService.getRssItemsAfterDate(date)
     }
 

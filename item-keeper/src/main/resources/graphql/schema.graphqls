@@ -76,7 +76,7 @@ type RssItem {
     tags: [String]
     title: String!
     type: String
-    createdAt: String!
+    createdAt: String
     deletedAt: String
     updatedAt: String
 }
@@ -85,6 +85,10 @@ input SourceInput {
     name: String,
     link: String,
     configurationFilename: String
+    createdAt: String
+    deletedAt: String
+    updatedAt: String
+    isBanned: Boolean
 }
 
 input RssItemInput {
