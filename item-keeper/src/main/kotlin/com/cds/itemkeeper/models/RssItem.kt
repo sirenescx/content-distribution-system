@@ -1,5 +1,7 @@
 package com.cds.itemkeeper.models
 
+import com.cds.itemkeeper.utils.JsonDateSerializer
+import com.fasterxml.jackson.databind.annotation.JsonSerialize
 import io.hypersistence.utils.hibernate.type.array.StringArrayType
 import jakarta.persistence.*
 import org.hibernate.annotations.Type
@@ -32,11 +34,11 @@ class RssItem {
 
     @Basic
     @Column(name = "publication_date")
-    var publicationDate: LocalDate? = null
+    var publicationDate: Date? = null
 
     @Basic
-    @Column(name = "description", nullable = false, columnDefinition = "text")
-    lateinit var description: String
+    @Column(name = "description", columnDefinition = "text")
+    var description: String? = null
 
     @Basic
     @Column(name = "category", length = 256)

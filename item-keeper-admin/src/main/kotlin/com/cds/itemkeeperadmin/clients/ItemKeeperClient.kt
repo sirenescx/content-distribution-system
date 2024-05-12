@@ -1,18 +1,20 @@
 package com.cds.itemkeeperadmin.clients
 
 import com.cds.generated.*
-import com.cds.generated.Date
 import com.cds.generated.inputs.RssItemInput
 import com.expediagroup.graphql.client.spring.GraphQLWebClient
 import kotlinx.coroutines.runBlocking
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Component
+import java.text.SimpleDateFormat
+import java.util.Date
 
 
 @Component
 class ItemKeeperClient {
     @Autowired
     private lateinit var client: GraphQLWebClient
+    private val dateFormatter = SimpleDateFormat("yyyy-MM-dd")
 
     fun getRssItemById(id: String) =
         runBlocking { client.execute(GetRssItemById(GetRssItemById.Variables(id))) }.data!!.rssItemById
@@ -24,15 +26,24 @@ class ItemKeeperClient {
     }
 
     fun getRssItemsByPublicationDate(date: Date) = runBlocking {
-        client.execute(GetRssItemsByPublicationDate(GetRssItemsByPublicationDate.Variables(date))).data!!.rssItemsByPublicationDate
+        client
+            .execute(GetRssItemsByPublicationDate(GetRssItemsByPublicationDate.Variables(dateFormatter.format(date))))
+            .data!!
+            .rssItemsByPublicationDate
     }
 
     fun getRssItemsBeforeDate(date: Date) = runBlocking {
-        client.execute(GetRssItemsBeforeDate(GetRssItemsBeforeDate.Variables(date))).data!!.rssItemsBeforeDate
+        client
+            .execute(GetRssItemsBeforeDate(GetRssItemsBeforeDate.Variables(dateFormatter.format(date))))
+            .data!!
+            .rssItemsBeforeDate
     }
 
     fun getRssItemsAfterDate(date: Date) = runBlocking {
-        client.execute(GetRssItemsAfterDate(GetRssItemsAfterDate.Variables(date))).data!!.rssItemsAfterDate
+        client
+            .execute(GetRssItemsAfterDate(GetRssItemsAfterDate.Variables(dateFormatter.format(date))))
+            .data!!
+            .rssItemsAfterDate
     }
 
     fun updateRssItem(id: String, rssItemInput: RssItemInput?) = runBlocking {

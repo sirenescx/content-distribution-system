@@ -103,7 +103,8 @@ class JsonPointerFetcher {
                     val dateFormat = SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss Z")
                     val utcTimeZone = TimeZone.getTimeZone("UTC")
                     dateFormat.timeZone = utcTimeZone
-                    return dateFormat.parse(value.toString().trim('"'))
+                    val x = dateFormat.parse(value.toString().trim('"'))
+                    return x
                 }
                 if (Arrays::class.java.isAssignableFrom(type)) {
                     val subtype = Class.forName(extractClassName(typeName))

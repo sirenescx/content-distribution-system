@@ -4,6 +4,7 @@ import com.cds.generated.inputs.RssItemInput
 import com.cds.itemkeeperadmin.models.RssItem
 import com.cds.itemkeeperadmin.models.Source
 import com.cds.itemkeeperadmin.services.ItemKeeperService
+import org.springframework.format.annotation.DateTimeFormat
 import org.springframework.web.bind.annotation.*
 import java.time.LocalDate
 import java.util.*
@@ -28,17 +29,17 @@ class RssController(private val itemKeeperService: ItemKeeperService) {
     }
 
     @GetMapping("/getItemsByPublicationDate")
-    fun getRssItemsByPublicationDate(publicationDate: LocalDate): List<RssItem>? {
+    fun getRssItemsByPublicationDate(@DateTimeFormat(pattern = "yyyy-MM-dd") publicationDate: Date): List<RssItem>? {
         return itemKeeperService.getRssItemsByPublicationDate(publicationDate)
     }
 
     @GetMapping("/getItemsBeforeDate")
-    fun getRssItemsBeforeDate(date: LocalDate): List<RssItem>? {
+    fun getRssItemsBeforeDate(@DateTimeFormat(pattern = "yyyy-MM-dd") date: Date): List<RssItem>? {
         return itemKeeperService.getRssItemsBeforeDate(date)
     }
 
     @GetMapping("/getItemsAfterDate")
-    fun getRssItemsAfterDate(date: LocalDate): List<RssItem>? {
+    fun getRssItemsAfterDate(@DateTimeFormat(pattern = "yyyy-MM-dd") date: Date): List<RssItem>? {
         return itemKeeperService.getRssItemsAfterDate(date)
     }
 

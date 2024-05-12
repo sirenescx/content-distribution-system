@@ -63,7 +63,7 @@ type Source {
 
 type RssItem {
     category: String
-    description: String!
+    description: String
     fullText: String
     guid: String
     id: ID!

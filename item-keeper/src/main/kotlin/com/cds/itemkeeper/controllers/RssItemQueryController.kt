@@ -11,7 +11,9 @@ import org.springframework.graphql.data.method.annotation.MutationMapping
 import org.springframework.graphql.data.method.annotation.QueryMapping
 import org.springframework.stereotype.Controller
 import java.sql.Timestamp
+import java.text.SimpleDateFormat
 import java.time.LocalDate
+import java.time.ZoneId
 import java.util.*
 
 @Controller
@@ -87,18 +89,21 @@ class RssItemQueryController(private val rssItemRepository: RssItemRepository) :
     @QueryMapping("rssItemsByPublicationDate")
     @GraphQLDescription("Returns rss items by publicationDate")
     fun getRssItemsByPublicationDate(@Argument publicationDate: LocalDate): List<RssItem>? {
-        return rssItemRepository.findAllActive().filter { it.publicationDate == publicationDate }
+        return rssItemRepository.findAllActive()
+            .filter { LocalDate.ofInstant(it.publicationDate?.toInstant(), ZoneId.systemDefault()) == publicationDate }
     }
 
     @QueryMapping("rssItemsBeforeDate")
     @GraphQLDescription("Returns rss items published before specified date")
     fun getRssItemsBeforeDate(@Argument date: LocalDate): List<RssItem>? {
-        return rssItemRepository.findAllActive().filter { (it.publicationDate?.compareTo(date) ?: 0) < 0 }
+        return rssItemRepository.findAllActive()
+            .filter { LocalDate.ofInstant(it.publicationDate?.toInstant(), ZoneId.systemDefault()) < date }
     }
 
     @QueryMapping("rssItemsAfterDate")
     @GraphQLDescription("Returns rss items published after specified date")
     fun getRssItemsAfterDate(@Argument date: LocalDate): List<RssItem>? {
-        return rssItemRepository.findAllActive().filter { (it.publicationDate?.compareTo(date) ?: 0) > 0 }
+        return rssItemRepository.findAllActive()
+            .filter { LocalDate.ofInstant(it.publicationDate?.toInstant(), ZoneId.systemDefault()) > date }
     }
 }

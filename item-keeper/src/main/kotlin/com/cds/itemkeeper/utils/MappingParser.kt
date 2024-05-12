@@ -10,7 +10,9 @@ class MappingParser {
     companion object {
         fun parseMapping(configurationFilename: String): Mapping {
             val inputStream = FileInputStream(
-                Path("src/main/resources/mapping_configs", configurationFilename).toString()
+                this::class.java.classLoader.getResource(
+                    Path("mapping_configs", configurationFilename).toString()
+                )!!.path
             )
             val jsonReader = Json.createReader(inputStream)
             val rawMapping = jsonReader.read().asJsonObject()
