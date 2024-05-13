@@ -5,20 +5,28 @@ networks:
     driver: bridge
 
 services:
-  item_keeper:
+  item-keeper:
     image: item_keeper
+#    build:
+#      dockerfile: ./item-keeper/Dockerfile
     ports:
       - "8080:8080"
     environment:
       - POSTGRES_USER=${POSTGRES_USER}
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
       - DB_URL=jdbc:postgresql://postgres:5432/${POSTGRES_DB}
-  item_keeper_admin:
+      - QUARTZ_CRON_EXPRESSION=${QUARTZ_CRON_EXPRESSION}
+    depends_on:
+      postgres:
+          condition: service_healthy
+  item-keeper-admin:
     image: item_keeper_admin
+#    build:
+#      dockerfile: ./item-keeper-admin/Dockerfile
     ports:
       - "8081:8081"
     environment:
-      - GRAPHQL_CLIENT_URL=item_keeper:8080/graphql
+      - GRAPHQL_CLIENT_URL=item-keeper:8080/graphql
   prometheus:
     image: prom/prometheus:latest
     container_name: prometheus
@@ -51,3 +59,8 @@ services:
       - POSTGRES_USER=${POSTGRES_USER}
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
       - POSTGRES_DB=${POSTGRES_DB}
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5

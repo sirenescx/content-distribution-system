@@ -9,10 +9,13 @@ import kotlin.io.path.Path
 class MappingParser {
     companion object {
         fun parseMapping(configurationFilename: String): Mapping {
+//            val inputStream = FileInputStream(
+//                this::class.java.classLoader.getResource(
+//                    Path("mapping_configs", configurationFilename).toString()
+//                )!!.path
+//            )
             val inputStream = FileInputStream(
-                this::class.java.classLoader.getResource(
-                    Path("mapping_configs", configurationFilename).toString()
-                )!!.path
+                Path("src/main/resources/mapping_configs", configurationFilename).toString()
             )
             val jsonReader = Json.createReader(inputStream)
             val rawMapping = jsonReader.read().asJsonObject()

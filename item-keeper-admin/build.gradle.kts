@@ -24,6 +24,7 @@ repositories {
 graphql {
 	client {
 		endpoint = System.getenv("GRAPHQL_CLIENT_URL")?.ifBlank { "http://localhost:8080/graphql" }
+		schemaFile = file("src/main/resources/graphql/schema.graphqls")
 		packageName = "com.cds.generated"
 	}
 }
