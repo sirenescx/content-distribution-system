@@ -1,5 +1,5 @@
-query getRssItemsBySourceId($sourceId: ID!) {
-    rssItemsBySourceId(sourceId: $sourceId) {
+query getRssItemsBySourceId($sourceId: ID!, $page: Int, $size: Int) {
+    rssItemsBySourceId(sourceId: $sourceId, page: $page, size: $size) {
         id
         title
         link

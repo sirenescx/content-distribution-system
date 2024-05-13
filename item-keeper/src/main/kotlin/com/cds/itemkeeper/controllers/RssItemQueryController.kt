@@ -5,22 +5,29 @@ import com.cds.itemkeeper.models.RssItemInput
 import com.cds.itemkeeper.repositories.RssItemRepository
 import com.expediagroup.graphql.generator.annotations.GraphQLDescription
 import com.expediagroup.graphql.server.operations.Query
+import org.springframework.data.domain.PageRequest
+import org.springframework.data.domain.Pageable
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.graphql.data.method.annotation.Argument
 import org.springframework.graphql.data.method.annotation.MutationMapping
 import org.springframework.graphql.data.method.annotation.QueryMapping
 import org.springframework.stereotype.Controller
 import java.sql.Timestamp
-import java.text.SimpleDateFormat
 import java.time.LocalDate
-import java.time.ZoneId
 import java.util.*
+
 
 @Controller
 class RssItemQueryController(private val rssItemRepository: RssItemRepository) : Query {
     @QueryMapping("rssItems")
     @GraphQLDescription("Returns all active (not deleted) rss items")
-    fun getRssItems(): List<RssItem> = rssItemRepository.findAllActive()
+    fun getRssItems(
+        @Argument page: Int,
+        @Argument size: Int
+    ): List<RssItem> {
+        val pageable: Pageable = PageRequest.of(page, size)
+        return rssItemRepository.findAllActive(pageable).toList()
+    }
 
     @QueryMapping("rssItemById")
     @GraphQLDescription("Returns rss item by id")
@@ -28,8 +35,13 @@ class RssItemQueryController(private val rssItemRepository: RssItemRepository) :
 
     @QueryMapping("rssItemsBySourceId")
     @GraphQLDescription("Returns rss items by id of the source")
-    fun getRssItemsBySourceId(@Argument sourceId: UUID): List<RssItem> {
-        return rssItemRepository.findAllActive().filter { it.sourceId == sourceId }
+    fun getRssItemsBySourceId(
+        @Argument sourceId: UUID,
+        @Argument page: Int,
+        @Argument size: Int
+    ): List<RssItem> {
+        val pageable: Pageable = PageRequest.of(page, size)
+        return rssItemRepository.findAllActiveBySourceId(sourceId, pageable).toList()
     }
 
     @MutationMapping("updateRssItem")
@@ -88,22 +100,45 @@ class RssItemQueryController(private val rssItemRepository: RssItemRepository) :
 
     @QueryMapping("rssItemsByPublicationDate")
     @GraphQLDescription("Returns rss items by publicationDate")
-    fun getRssItemsByPublicationDate(@Argument publicationDate: LocalDate): List<RssItem>? {
-        return rssItemRepository.findAllActive()
-            .filter { LocalDate.ofInstant(it.publicationDate?.toInstant(), ZoneId.systemDefault()) == publicationDate }
+    fun getRssItemsByPublicationDate(
+        @Argument publicationDate: LocalDate,
+        @Argument page: Int,
+        @Argument size: Int
+    ): List<RssItem>? {
+        val pageable: Pageable = PageRequest.of(page, size)
+        return rssItemRepository.findAllActiveByPublicationDate(publicationDate, pageable).toList()
     }
 
     @QueryMapping("rssItemsBeforeDate")
     @GraphQLDescription("Returns rss items published before specified date")
-    fun getRssItemsBeforeDate(@Argument date: LocalDate): List<RssItem>? {
-        return rssItemRepository.findAllActive()
-            .filter { LocalDate.ofInstant(it.publicationDate?.toInstant(), ZoneId.systemDefault()) < date }
+    fun getRssItemsBeforeDate(
+        @Argument date: LocalDate,
+        @Argument page: Int,
+        @Argument size: Int
+    ): List<RssItem>? {
+        val pageable: Pageable = PageRequest.of(page, size)
+        return rssItemRepository.findAllActiveBeforeDate(date, pageable).toList()
     }
 
     @QueryMapping("rssItemsAfterDate")
     @GraphQLDescription("Returns rss items published after specified date")
-    fun getRssItemsAfterDate(@Argument date: LocalDate): List<RssItem>? {
-        return rssItemRepository.findAllActive()
-            .filter { LocalDate.ofInstant(it.publicationDate?.toInstant(), ZoneId.systemDefault()) > date }
+    fun getRssItemsAfterDate(
+        @Argument date: LocalDate,
+        @Argument page: Int,
+        @Argument size: Int
+    ): List<RssItem>? {
+        val pageable: Pageable = PageRequest.of(page, size)
+        return rssItemRepository.findAllActiveAfterDate(date, pageable).toList()
+    }
+
+    @QueryMapping("rssItemsByCategory")
+    @GraphQLDescription("Returns rss items by category")
+    fun getRssItemsByCategory(
+        @Argument category: String,
+        @Argument page: Int,
+        @Argument size: Int
+    ): List<RssItem>? {
+        val pageable: Pageable = PageRequest.of(page, size)
+        return rssItemRepository.findAllActiveByCategory(category, pageable).toList()
     }
 }

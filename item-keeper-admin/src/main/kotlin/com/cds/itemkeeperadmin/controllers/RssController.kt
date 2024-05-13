@@ -5,6 +5,7 @@ import com.cds.itemkeeperadmin.models.RssItem
 import com.cds.itemkeeperadmin.models.Source
 import com.cds.itemkeeperadmin.services.ItemKeeperService
 import org.springframework.format.annotation.DateTimeFormat
+import org.springframework.graphql.data.method.annotation.Argument
 import org.springframework.web.bind.annotation.*
 import java.time.LocalDate
 import java.util.*
@@ -19,28 +20,47 @@ class RssController(private val itemKeeperService: ItemKeeperService) {
     }
 
     @GetMapping("/getItems")
-    fun getRssItems(): List<RssItem>? {
-        return itemKeeperService.getRssItems()
+    fun getRssItems(
+        @RequestParam(defaultValue = "0") page: Int,
+        @RequestParam(defaultValue = "100") size: Int
+    ): List<RssItem>? {
+        return itemKeeperService.getRssItems(page, size)
     }
 
     @GetMapping("/getItemsBySource")
-    fun getRssItemsBySource(sourceId: String): List<RssItem>? {
-        return itemKeeperService.getRssItemsBySourceId(sourceId)
+    fun getRssItemsBySource(
+        sourceId: String,
+        @RequestParam(defaultValue = "0") page: Int,
+        @RequestParam(defaultValue = "100") size: Int
+    ): List<RssItem>? {
+        return itemKeeperService.getRssItemsBySourceId(sourceId, page, size)
     }
 
     @GetMapping("/getItemsByPublicationDate")
-    fun getRssItemsByPublicationDate(@DateTimeFormat(pattern = "yyyy-MM-dd") publicationDate: Date): List<RssItem>? {
-        return itemKeeperService.getRssItemsByPublicationDate(publicationDate)
+    fun getRssItemsByPublicationDate(
+        @DateTimeFormat(pattern = "yyyy-MM-dd") publicationDate: Date,
+        @RequestParam(defaultValue = "0") page: Int,
+        @RequestParam(defaultValue = "100") size: Int
+    ): List<RssItem>? {
+        return itemKeeperService.getRssItemsByPublicationDate(publicationDate, page, size)
     }
 
     @GetMapping("/getItemsBeforeDate")
-    fun getRssItemsBeforeDate(@DateTimeFormat(pattern = "yyyy-MM-dd") date: Date): List<RssItem>? {
-        return itemKeeperService.getRssItemsBeforeDate(date)
+    fun getRssItemsBeforeDate(
+        @DateTimeFormat(pattern = "yyyy-MM-dd") date: Date,
+        @RequestParam(defaultValue = "0") page: Int,
+        @RequestParam(defaultValue = "100") size: Int
+    ): List<RssItem>? {
+        return itemKeeperService.getRssItemsBeforeDate(date, page, size)
     }
 
     @GetMapping("/getItemsAfterDate")
-    fun getRssItemsAfterDate(@DateTimeFormat(pattern = "yyyy-MM-dd") date: Date): List<RssItem>? {
-        return itemKeeperService.getRssItemsAfterDate(date)
+    fun getRssItemsAfterDate(
+        @DateTimeFormat(pattern = "yyyy-MM-dd") date: Date,
+        @RequestParam(defaultValue = "0") page: Int,
+        @RequestParam(defaultValue = "100") size: Int
+    ): List<RssItem>? {
+        return itemKeeperService.getRssItemsAfterDate(date, page, size)
     }
 
     @PostMapping("/updateRssItem")

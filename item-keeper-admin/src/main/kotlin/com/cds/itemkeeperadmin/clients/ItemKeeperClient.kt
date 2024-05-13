@@ -19,29 +19,46 @@ class ItemKeeperClient {
     fun getRssItemById(id: String) =
         runBlocking { client.execute(GetRssItemById(GetRssItemById.Variables(id))) }.data!!.rssItemById
 
-    fun getRssItems() = runBlocking { client.execute(GetRssItems()) }.data!!.rssItems
+    fun getRssItems(page: Int, size: Int) =
+        runBlocking { client.execute(GetRssItems(GetRssItems.Variables(page, size))) }.data!!.rssItems
 
-    fun getRssItemsBySourceId(sourceId: String) = runBlocking {
-        client.execute(GetRssItemsBySourceId(GetRssItemsBySourceId.Variables(sourceId))).data!!.rssItemsBySourceId
+    fun getRssItemsBySourceId(sourceId: String, page: Int, size: Int) = runBlocking {
+        client.execute(
+            GetRssItemsBySourceId(
+                GetRssItemsBySourceId.Variables(
+                    sourceId,
+                    page,
+                    size
+                )
+            )
+        ).data!!.rssItemsBySourceId
     }
 
-    fun getRssItemsByPublicationDate(date: Date) = runBlocking {
+    fun getRssItemsByPublicationDate(date: Date, page: Int, size: Int) = runBlocking {
         client
-            .execute(GetRssItemsByPublicationDate(GetRssItemsByPublicationDate.Variables(dateFormatter.format(date))))
+            .execute(
+                GetRssItemsByPublicationDate(
+                    GetRssItemsByPublicationDate.Variables(
+                        dateFormatter.format(date),
+                        page,
+                        size
+                    )
+                )
+            )
             .data!!
             .rssItemsByPublicationDate
     }
 
-    fun getRssItemsBeforeDate(date: Date) = runBlocking {
+    fun getRssItemsBeforeDate(date: Date, page: Int, size: Int) = runBlocking {
         client
-            .execute(GetRssItemsBeforeDate(GetRssItemsBeforeDate.Variables(dateFormatter.format(date))))
+            .execute(GetRssItemsBeforeDate(GetRssItemsBeforeDate.Variables(dateFormatter.format(date), page, size)))
             .data!!
             .rssItemsBeforeDate
     }
 
-    fun getRssItemsAfterDate(date: Date) = runBlocking {
+    fun getRssItemsAfterDate(date: Date, page: Int, size: Int) = runBlocking {
         client
-            .execute(GetRssItemsAfterDate(GetRssItemsAfterDate.Variables(dateFormatter.format(date))))
+            .execute(GetRssItemsAfterDate(GetRssItemsAfterDate.Variables(dateFormatter.format(date), page, size)))
             .data!!
             .rssItemsAfterDate
     }

@@ -14,25 +14,28 @@ class ItemKeeperService(private val itemKeeperClient: ItemKeeperClient, private 
         return modelMapper.map(itemKeeperClient.getRssItemById(id), RssItem::class.java)
     }
 
-    fun getRssItems(): List<RssItem>? {
-        return itemKeeperClient.getRssItems()?.map { modelMapper.map(it, RssItem::class.java) }
+    fun getRssItems(page: Int, size: Int): List<RssItem>? {
+        return itemKeeperClient.getRssItems(page, size)?.map { modelMapper.map(it, RssItem::class.java) }
     }
 
-    fun getRssItemsBySourceId(sourceId: String): List<RssItem>? {
-        return itemKeeperClient.getRssItemsBySourceId(sourceId)?.map { modelMapper.map(it, RssItem::class.java) }
-    }
-
-    fun getRssItemsByPublicationDate(publicationDate: Date): List<RssItem>? {
-        return itemKeeperClient.getRssItemsByPublicationDate(publicationDate)
+    fun getRssItemsBySourceId(sourceId: String, page: Int, size: Int): List<RssItem>? {
+        return itemKeeperClient.getRssItemsBySourceId(sourceId, page, size)
             ?.map { modelMapper.map(it, RssItem::class.java) }
     }
 
-    fun getRssItemsBeforeDate(date: Date): List<RssItem>? {
-        return itemKeeperClient.getRssItemsBeforeDate(date)?.map { modelMapper.map(it, RssItem::class.java) }
+    fun getRssItemsByPublicationDate(publicationDate: Date, page: Int, size: Int): List<RssItem>? {
+        return itemKeeperClient.getRssItemsByPublicationDate(publicationDate, page, size)
+            ?.map { modelMapper.map(it, RssItem::class.java) }
     }
 
-    fun getRssItemsAfterDate(date: Date): List<RssItem>? {
-        return itemKeeperClient.getRssItemsAfterDate(date)?.map { modelMapper.map(it, RssItem::class.java) }
+    fun getRssItemsBeforeDate(date: Date, page: Int, size: Int): List<RssItem>? {
+        return itemKeeperClient.getRssItemsBeforeDate(date, page, size)
+            ?.map { modelMapper.map(it, RssItem::class.java) }
+    }
+
+    fun getRssItemsAfterDate(date: Date, page: Int, size: Int): List<RssItem>? {
+        return itemKeeperClient.getRssItemsAfterDate(date, page, size)
+            ?.map { modelMapper.map(it, RssItem::class.java) }
     }
 
     fun updateRssItem(id: String, rssItemInput: RssItemInput): RssItem? {

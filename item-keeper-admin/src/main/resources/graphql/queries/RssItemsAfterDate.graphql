@@ -1,5 +1,5 @@
-query getRssItemsAfterDate($date: Date!) {
-    rssItemsAfterDate(date: $date) {
+query getRssItemsAfterDate($date: Date!, $page: Int, $size: Int) {
+    rssItemsAfterDate(date: $date, page: $page, size: $size) {
         id
         title
         link

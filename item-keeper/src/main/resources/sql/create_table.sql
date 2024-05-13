@@ -14,7 +14,7 @@ create table items
     publication_date date,
     description      text         not null,
     category         varchar(256),
-    guid             varchar(128),
+    guid             varchar(256) not null,
     pda_link         varchar(256),
     full_text        text,
     news_id          varchar(256),

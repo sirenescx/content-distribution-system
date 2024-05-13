@@ -1,5 +1,5 @@
-query getRssItems {
-    rssItems {
+query getRssItems($page: Int, $size: Int) {
+    rssItems(page: $page, size: $size) {
         id
         title
         link

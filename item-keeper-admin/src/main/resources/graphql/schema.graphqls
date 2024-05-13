@@ -7,11 +7,12 @@ schema {
 
 type Query {
     rssItemById(id: ID!): RssItem
-    rssItems: [RssItem]
-    rssItemsBySourceId(sourceId: ID!): [RssItem]
-    rssItemsByPublicationDate(publicationDate: Date): [RssItem]
-    rssItemsBeforeDate(date: Date): [RssItem]
-    rssItemsAfterDate(date: Date): [RssItem]
+    rssItems(page: Int, size: Int): [RssItem]
+    rssItemsBySourceId(sourceId: ID!, page: Int, size: Int): [RssItem]
+    rssItemsByPublicationDate(publicationDate: Date, page: Int, size: Int): [RssItem]
+    rssItemsBeforeDate(date: Date, page: Int, size: Int): [RssItem]
+    rssItemsAfterDate(date: Date, page: Int, size: Int): [RssItem]
+    rssItemsByCategory(category: String!, page: Int, size: Int): [RssItem]
     sourceById(id: ID!): Source
     sourceByName(name: String!): Source
     sources: [Source]
