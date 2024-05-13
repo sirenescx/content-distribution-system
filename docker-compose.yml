@@ -6,7 +6,7 @@ networks:
 
 services:
   item-keeper:
-    image: item_keeper
+    image: content-distribution-system_item-keeper
 #    build:
 #      dockerfile: ./item-keeper/Dockerfile
     ports:
@@ -26,7 +26,7 @@ services:
     ports:
       - "8081:8081"
     environment:
-      - GRAPHQL_CLIENT_URL=item-keeper:8080/graphql
+      - GRAPHQL_CLIENT_URL=http://item-keeper:8080/graphql
   prometheus:
     image: prom/prometheus:latest
     container_name: prometheus
