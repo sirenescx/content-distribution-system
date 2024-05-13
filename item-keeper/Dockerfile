@@ -15,6 +15,7 @@ FROM --platform=linux/amd64 amazoncorretto:17-alpine-jdk
 WORKDIR /itemkeeper
 
 COPY --from=builder /itemkeeper/build/libs/*.jar itemkeeper.jar
+COPY --from=builder /itemkeeper/src/main/resources/mapping_configs mapping_configs
 
 EXPOSE 8080
 

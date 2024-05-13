@@ -16,7 +16,7 @@ create table items
     title            varchar(256) not null,
     link             varchar(256) not null,
     publication_date date,
-    description      text         not null,
+    description      text,
     category         varchar(256),
     guid             varchar(256) not null,
     pda_link         varchar(256),

@@ -10,15 +10,8 @@ import kotlin.io.path.Path
 class MappingParser {
     companion object {
         fun parseMapping(configurationFilename: String): Mapping {
-            listDirectoriesAndFiles(File("../"))
-//            val inputStream = FileInputStream(
-//                this::class.java.classLoader.getResource(
-//                    Path("mapping_configs", configurationFilename).toString()
-//                )!!.path
-//            )
-
             val inputStream = FileInputStream(
-                Path("../src/main/resources/mapping_configs", configurationFilename).toString()
+                Path("mapping_configs", configurationFilename).toString()
             )
             val jsonReader = Json.createReader(inputStream)
             val rawMapping = jsonReader.read().asJsonObject()
@@ -45,19 +38,6 @@ class MappingParser {
             builder.append('/')
             builder.append(mapping.replace('.', '/'))
             return builder.toString()
-        }
-
-        fun listDirectoriesAndFiles(directory: File) {
-            val files = directory.listFiles() ?: arrayOf<File>()
-
-            for (file in files) {
-                if (file.isDirectory) {
-                    println("Directory: ${file.absolutePath}")
-                    listDirectoriesAndFiles(file)
-                } else {
-                    println("File: ${file.absolutePath}")
-                }
-            }
         }
     }
 }
