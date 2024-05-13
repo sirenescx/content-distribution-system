@@ -19,6 +19,7 @@ repositories {
 }
 
 dependencies {
+    implementation("org.springframework.boot", "spring-boot-gradle-plugin", "3.2.2")
     implementation("org.springframework.boot", "spring-boot-starter-data-jpa")
     implementation("org.springframework.boot", "spring-boot-starter-graphql")
     implementation("com.expediagroup", "graphql-kotlin-spring-server", "6.6.0")

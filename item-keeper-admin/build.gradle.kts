@@ -23,7 +23,7 @@ repositories {
 
 graphql {
 	client {
-		endpoint = "http://localhost:8080/graphql"
+		endpoint = System.getenv("GRAPHQL_CLIENT_URL")?.ifBlank { "http://localhost:8080/graphql" }
 		packageName = "com.cds.generated"
 	}
 }
@@ -33,6 +33,7 @@ noArg {
 }
 
 dependencies {
+	implementation("org.springframework.boot", "spring-boot-gradle-plugin", "3.2.2")
 	implementation("org.springframework.boot", "spring-boot-starter-graphql")
 	implementation("com.expediagroup", "graphql-kotlin-spring-client", "7.1.1")
 	implementation("com.graphql-java-kickstart", "graphql-java-tools", "13.1.1")

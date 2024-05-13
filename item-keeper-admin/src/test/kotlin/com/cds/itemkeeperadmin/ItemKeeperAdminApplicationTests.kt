@@ -1,10 +1,10 @@
-package com.cds.itemkeeper
+package com.cds.itemkeeperadmin
 
 import org.junit.jupiter.api.Test
 import org.springframework.boot.test.context.SpringBootTest
 
 @SpringBootTest
-class ItemKeeperApplicationTests {
+class ItemKeeperAdminApplicationTests {
 
 	@Test
 	fun contextLoads() {

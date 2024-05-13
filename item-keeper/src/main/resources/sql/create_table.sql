@@ -3,7 +3,11 @@ create table sources
     id                      uuid primary key default gen_random_uuid(),
     name                    varchar(256) not null,
     link                    varchar(256) not null,
-    configuration_filename  varchar(256) not null
+    configuration_filename  varchar(256) not null,
+    created_at              timestamp,
+    updated_at              timestamp,
+    deleted_at              timestamp,
+    is_banned               boolean default false
 );
 
 create table items

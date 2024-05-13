@@ -1,0 +1,53 @@
+version: '3'
+
+networks:
+  monitoring:
+    driver: bridge
+
+services:
+  item_keeper:
+    image: item_keeper
+    ports:
+      - "8080:8080"
+    environment:
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - DB_URL=jdbc:postgresql://postgres:5432/${POSTGRES_DB}
+  item_keeper_admin:
+    image: item_keeper_admin
+    ports:
+      - "8081:8081"
+    environment:
+      - GRAPHQL_CLIENT_URL=item_keeper:8080/graphql
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: prometheus
+    volumes:
+      - ./prometheus:/etc/prometheus
+    ports:
+      - "9090:9090"
+    networks:
+      - monitoring
+  grafana:
+    image: grafana/grafana:latest
+    container_name: grafana
+    ports:
+      - "9095:3000"
+    environment:
+      - GF_SECURITY_ADMIN_USER=${GRAFANA_USER}
+      - GF_SECURITY_ADMIN_PASSWORD=${GRAFANA_PASSWORD}
+    depends_on:
+      - prometheus
+    networks:
+      - monitoring
+  postgres:
+    image: postgres:latest
+    container_name: postgres
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./postgres-data:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - POSTGRES_DB=${POSTGRES_DB}
