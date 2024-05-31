@@ -11,17 +11,6 @@ MSc Student at Machine Learning and Data-Intensive Systems program, Higher Schoo
 Telegram: [@mxmanakhova](https://t.me/mxmanakhova)<br>
 Mail: msmanakhova@edu.hse.ru
 
-## Supervisors
-**Arakcheev Anton**<br>
-IT Team Lead at Tinkoff<br>
-Telegram: [@Graph_AAC](https://t.me/Graph_AAC)<br>
-Mail: a.arakcheev@tinkoff.ru
-
-**Danzan Shurkaev**<br>
-Senior Software Engineer at Tinkoff<br>
-Telegram: [@DanzanSh](https://t.me/DanzanSh)<br>
-Mail: d.shurkaev@tinkoff.ru
-
 ## Work Plan
 |                                                                                                                                               | Deadline               |
 |-----------------------------------------------------------------------------------------------------------------------------------------------|------------------------|
@@ -61,6 +50,7 @@ Data parsing is implemented via usage of ROME framework for RSS and Atom feeds, 
 The final product is a backend system consisting of two web services:
 ![Scheme](architecture_scheme.png)
 ### 1. Item Keeper service
+![Scheme](item-keeper-architecture.png)
 Item Keeper is a service that is required for parsing data from RSS files of news sources by a cron job and storing parsed data in PostgreSQL database.
 
 **Technology Stack:**
