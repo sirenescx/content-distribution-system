@@ -2,7 +2,9 @@ package com.cds.itemkeeper.controllers
 
 import com.cds.itemkeeper.models.RssItem
 import com.cds.itemkeeper.models.RssItemInput
+import com.cds.itemkeeper.models.Source
 import com.cds.itemkeeper.repositories.RssItemRepository
+import com.cds.itemkeeper.repositories.SourceRepository
 import com.expediagroup.graphql.generator.annotations.GraphQLDescription
 import com.expediagroup.graphql.server.operations.Query
 import org.springframework.data.domain.PageRequest
@@ -11,6 +13,7 @@ import org.springframework.data.repository.findByIdOrNull
 import org.springframework.graphql.data.method.annotation.Argument
 import org.springframework.graphql.data.method.annotation.MutationMapping
 import org.springframework.graphql.data.method.annotation.QueryMapping
+import org.springframework.graphql.data.method.annotation.SchemaMapping
 import org.springframework.stereotype.Controller
 import java.sql.Timestamp
 import java.time.LocalDate
@@ -18,7 +21,13 @@ import java.util.*
 
 
 @Controller
-class RssItemQueryController(private val rssItemRepository: RssItemRepository) : Query {
+class RssItemQueryController(
+    private val rssItemRepository: RssItemRepository,
+    private val sourceRepository: SourceRepository
+) : Query {
+    @SchemaMapping(typeName="RssItem", field="source")
+    fun getSource(rssItem: RssItem): Source = sourceRepository.findById(rssItem.sourceId).orElse(null)
+
     @QueryMapping("rssItems")
     @GraphQLDescription("Returns all active (not deleted) rss items")
     fun getRssItems(

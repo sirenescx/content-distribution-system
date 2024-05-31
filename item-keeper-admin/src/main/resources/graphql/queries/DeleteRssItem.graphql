@@ -3,7 +3,6 @@ mutation deleteRssItem($id: ID!) {
         id
         title
         link
-        sourceId
         publicationDate
         description
         category
@@ -15,5 +14,9 @@ mutation deleteRssItem($id: ID!) {
         tags
         newsLine
         deletedAt
+        source {
+            name
+            link
+        }
     }
 }

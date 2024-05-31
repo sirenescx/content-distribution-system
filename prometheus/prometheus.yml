@@ -5,3 +5,10 @@ scrape_configs:
   - job_name: 'prometheus'
     static_configs:
       - targets: ['localhost:9090']
+  - job_name: 'postgres-exporter'
+    static_configs:
+      - targets: [ 'postgres-exporter:9187' ]
+  - job_name: 'item-keeper-metrics'
+    metrics_path: '/actuator/prometheus'
+    static_configs:
+      - targets: [ 'item-keeper:8080' ]

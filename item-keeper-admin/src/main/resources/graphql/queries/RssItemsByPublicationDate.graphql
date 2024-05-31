@@ -3,7 +3,6 @@ query getRssItemsByPublicationDate($publicationDate: Date!, $page: Int, $size: I
         id
         title
         link
-        sourceId
         publicationDate
         description
         category
@@ -14,5 +13,9 @@ query getRssItemsByPublicationDate($publicationDate: Date!, $page: Int, $size: I
         type
         tags
         newsLine
+        source {
+            name
+            link
+        }
     }
 }

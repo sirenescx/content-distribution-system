@@ -3,7 +3,6 @@ query getRssItemsBySourceId($sourceId: ID!, $page: Int, $size: Int) {
         id
         title
         link
-        sourceId
         publicationDate
         description
         category
@@ -14,5 +13,9 @@ query getRssItemsBySourceId($sourceId: ID!, $page: Int, $size: Int) {
         type
         tags
         newsLine
+        source {
+            name
+            link
+        }
     }
 }

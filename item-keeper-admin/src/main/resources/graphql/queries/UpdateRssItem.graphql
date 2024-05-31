@@ -3,7 +3,6 @@ mutation updateRssItem($id: ID!, $rssItemInput: RssItemInput) {
         id
         title
         link
-        sourceId
         publicationDate
         description
         category
@@ -14,5 +13,9 @@ mutation updateRssItem($id: ID!, $rssItemInput: RssItemInput) {
         type
         tags
         newsLine
+        source {
+            name
+            link
+        }
     }
 }

@@ -17,18 +17,24 @@ import javax.json.*
 @Service
 class RssItemService(private val rssItemRepository: RssItemRepository) {
     fun saveParsedItems(feedUrl: String, configurationFilename: String, sourceId: UUID) {
-        val feed = XML.toJSONObject(XmlReader(URI(feedUrl).toURL())).toString().byteInputStream()
-        val jsonReader = Json.createReader(feed)
-        val jsonStructure = jsonReader.read()
-        jsonReader.close()
+        try {
+            val feed = XML.toJSONObject(XmlReader(URI(feedUrl).toURL())).toString().byteInputStream()
+            val jsonReader = Json.createReader(feed)
+            val jsonStructure = jsonReader.read()
+            jsonReader.close()
 
-        val mapping = MappingParser.parseMapping(configurationFilename)
-        val rssItems = mutableListOf<RssItem>()
-        for (json in JsonPointerFetcher.fetchDataFromRss(sourceId, mapping, jsonStructure)) {
-            rssItems.add(Gson().fromJson(json, RssItem::class.java))
+            val mapping = MappingParser.parseMapping(configurationFilename)
+            val rssItems = mutableListOf<RssItem>()
+            for (json in JsonPointerFetcher.fetchDataFromRss(sourceId, mapping, jsonStructure)) {
+                rssItems.add(Gson().fromJson(json, RssItem::class.java))
+            }
+
+            saveWithoutDuplicates(rssItems)
+        } catch (e: java.io.IOException) {
+            e.printStackTrace()
+        } catch (e: org.json.JSONException) {
+            e.printStackTrace()
         }
-
-        saveWithoutDuplicates(rssItems)
     }
 
     fun saveWithoutDuplicates(rssItems: List<RssItem>) {

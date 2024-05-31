@@ -17,8 +17,12 @@ import java.util.*
 @Controller
 class SourceQueryController(private val sourceRepository: SourceRepository) : Query {
     @QueryMapping("sources")
+    @GraphQLDescription("Returns all sources")
+    fun getSources(): List<Source> = sourceRepository.findAll()
+
+    @QueryMapping("activeSources")
     @GraphQLDescription("Returns all active (not deleted and banned) sources")
-    fun getSources(): List<Source> = sourceRepository.findAllActive()
+    fun getActiveSources(): List<Source> = sourceRepository.findAllActive()
 
     @QueryMapping("bannedSources")
     @GraphQLDescription("Returns all active (not deleted) banned sources")

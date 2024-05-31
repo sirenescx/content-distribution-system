@@ -15,7 +15,7 @@ create table items
     id               uuid primary key default gen_random_uuid(),
     title            varchar(256) not null,
     link             varchar(256) not null,
-    publication_date date,
+    publication_date timestamp,
     description      text,
     category         varchar(256),
     guid             varchar(256) not null,

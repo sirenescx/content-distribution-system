@@ -16,50 +16,18 @@ type Query {
     sourceById(id: ID!): Source
     sourceByName(name: String!): Source
     sources: [Source]
+    activeSources: [Source]
     bannedSources: [Source]
 }
 
 type Mutation {
-    updateRssItem(
-        id: ID!,
-        rssItemInput: RssItemInput
-    ): RssItem
-
-    deleteRssItem(
-        id: ID!
-    ): RssItem
-
-    createSource(
-        name: String!,
-        link: String!,
-        configurationFilename: String!
-    ): Source
-
-    updateSource(
-        id: ID!,
-        sourceInput: SourceInput
-    ): Source
-
-    deleteSource(
-        id: ID!
-    ): Source
-
-    banSource(
-        id: ID!
-    ): Source
-
-    unbanSource(
-        id: ID!
-    ): Source
-}
-
-type Source {
-    id: ID!
-    name: String!
-    link: String!
-    configurationFilename: String!
-    deletedAt: String
-    isBanned: Boolean
+    updateRssItem(id: ID!, rssItemInput: RssItemInput): RssItem
+    deleteRssItem(id: ID!): RssItem
+    createSource(name: String!, link: String!, configurationFilename: String!): Source
+    updateSource(id: ID!, sourceInput: SourceInput): Source
+    deleteSource(id: ID!): Source
+    banSource(id: ID!): Source
+    unbanSource(id: ID!): Source
 }
 
 type RssItem {
@@ -69,7 +37,6 @@ type RssItem {
     guid: String
     id: ID!
     link: String!
-    sourceId: ID!
     newsId: String
     newsLine: String
     pdaLink: String
@@ -80,16 +47,7 @@ type RssItem {
     createdAt: String
     deletedAt: String
     updatedAt: String
-}
-
-input SourceInput {
-    name: String,
-    link: String,
-    configurationFilename: String
-    createdAt: String
-    deletedAt: String
-    updatedAt: String
-    isBanned: Boolean
+    source: Source
 }
 
 input RssItemInput {
@@ -101,6 +59,25 @@ input RssItemInput {
     fullText: String,
     tags: [String],
     newsLine: String
+}
+
+type Source {
+    id: ID!
+    name: String!
+    link: String!
+    configurationFilename: String!
+    deletedAt: String
+    isBanned: Boolean
+}
+
+input SourceInput {
+    name: String,
+    link: String,
+    configurationFilename: String
+    createdAt: String
+    deletedAt: String
+    updatedAt: String
+    isBanned: Boolean
 }
 
 scalar Date
