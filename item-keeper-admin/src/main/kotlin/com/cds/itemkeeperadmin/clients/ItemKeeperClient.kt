@@ -2,6 +2,7 @@ package com.cds.itemkeeperadmin.clients
 
 import com.cds.generated.*
 import com.cds.generated.inputs.RssItemInput
+import com.cds.generated.inputs.SourceInput
 import com.expediagroup.graphql.client.spring.GraphQLWebClient
 import kotlinx.coroutines.runBlocking
 import org.springframework.beans.factory.annotation.Autowired
@@ -85,6 +86,10 @@ class ItemKeeperClient {
 
     fun createSource(name: String, link: String, configurationFilename: String) = runBlocking {
         client.execute(CreateSource(CreateSource.Variables(name, link, configurationFilename))).data!!.createSource
+    }
+
+    fun updateSource(id: String, sourceInput: SourceInput?) = runBlocking {
+        client.execute(UpdateSource(UpdateSource.Variables(id, sourceInput))).data!!.updateSource
     }
 
     fun deleteSource(id: String) = runBlocking {

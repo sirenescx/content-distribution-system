@@ -1,0 +1,20 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: item-keeper-admin
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+    nginx.ingress.kubernetes.io/x-forwarded-prefix: /item-keeper-admin/swagger_ui.html
+spec:
+  ingressClassName: nginx
+  rules:
+    - host: item-keeper-admin-cds.com
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: item-keeper-admin
+                port:
+                  number: 8081

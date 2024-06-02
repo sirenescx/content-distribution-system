@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: prometheus
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: prometheus-app
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: prometheus-app
+    spec:
+      containers:
+        - image: prom/prometheus:latest
+          name: prometheus
+          ports:
+            - containerPort: 9090
+              hostPort: 9090
+              protocol: TCP
+          volumeMounts:
+            - mountPath: /etc/prometheus
+              name: prometheus-configmap
+      restartPolicy: Always
+      volumes:
+        - configMap:
+            name: prometheus-configmap
+          name: prometheus-configmap

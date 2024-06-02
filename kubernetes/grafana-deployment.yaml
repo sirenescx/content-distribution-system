@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: grafana
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: grafana-app
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: grafana-app
+    spec:
+      containers:
+        - env:
+            - name: GF_SECURITY_ADMIN_PASSWORD
+              value: ${GRAFANA_PASSWORD}
+            - name: GF_SECURITY_ADMIN_USER
+              value: ${GRAFANA_PASSWORD}
+          image: grafana/grafana:latest
+          name: grafana
+          ports:
+            - containerPort: 3000
+              hostPort: 9095
+              protocol: TCP
+          volumeMounts:
+            - mountPath: /var/lib/grafana
+              name: grafana-storage
+      restartPolicy: Always
+      volumes:
+        - name: grafana-storage
+          persistentVolumeClaim:
+            claimName: grafana-storage-pvc

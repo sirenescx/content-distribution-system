@@ -1,0 +1,45 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: postgres
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: postgres-app
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: postgres-app
+    spec:
+      containers:
+        - env:
+            - name: POSTGRES_DB
+              value: ${POSTGRES_DB}
+            - name: POSTGRES_PASSWORD
+              value: ${POSTGRES_PASSWORD}
+            - name: POSTGRES_USER
+              value: ${POSTGRES_USER}
+          image: postgres:latest
+#          livenessProbe:
+#            exec:
+#              command:
+#                - pg_isready -U user -d cds
+#            failureThreshold: 5
+#            periodSeconds: 10
+#            timeoutSeconds: 5
+          name: postgres
+          ports:
+            - containerPort: 5432
+              hostPort: 5432
+              protocol: TCP
+          volumeMounts:
+            - mountPath: /var/lib/postgresql/data
+              name: postgres-data
+      restartPolicy: Always
+      volumes:
+        - name: postgres-data
+          persistentVolumeClaim:
+            claimName: postgres-pvc

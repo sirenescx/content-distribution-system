@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: item-keeper
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: item-keeper-app
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: item-keeper-app
+    spec:
+      containers:
+        - env:
+            - name: DB_URL
+              value: ${DB_URL}
+            - name: POSTGRES_PASSWORD
+              value: ${POSTGRES_PASSWORD}
+            - name: POSTGRES_USER
+              value: ${POSTGRES_USER}
+            - name: QUARTZ_CRON_EXPRESSION
+              value: ${QUARTZ_CRON_EXPRESSION}
+          image: mmanakhova/item-keeper:latest
+          name: item-keeper
+          ports:
+            - containerPort: 8080
+              hostPort: 8080
+              protocol: TCP
+          volumeMounts:
+            - mountPath: /mapping_configs
+              name: item-keeper-data
+      restartPolicy: Always
+      volumes:
+        - name: item-keeper-data
+          persistentVolumeClaim:
+            claimName: item-keeper-data-pvc

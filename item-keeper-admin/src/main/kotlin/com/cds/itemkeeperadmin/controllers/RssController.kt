@@ -1,6 +1,7 @@
 package com.cds.itemkeeperadmin.controllers
 
 import com.cds.generated.inputs.RssItemInput
+import com.cds.generated.inputs.SourceInput
 import com.cds.itemkeeperadmin.models.RssItem
 import com.cds.itemkeeperadmin.models.Source
 import com.cds.itemkeeperadmin.services.ItemKeeperService
@@ -96,6 +97,11 @@ class RssController(private val itemKeeperService: ItemKeeperService) {
     @PostMapping("/createSource")
     fun createSource(name: String, link: String, configurationFilename: String): Source? {
         return itemKeeperService.createSource(name, link, configurationFilename)
+    }
+
+    @DeleteMapping("/updateSource")
+    fun updateSource(id: String, sourceInput: SourceInput): Source? {
+        return itemKeeperService.updateSource(id, sourceInput)
     }
 
     @DeleteMapping("/deleteSource")

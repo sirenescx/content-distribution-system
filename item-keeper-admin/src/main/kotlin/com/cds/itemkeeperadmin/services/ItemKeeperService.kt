@@ -1,6 +1,7 @@
 package com.cds.itemkeeperadmin.services
 
 import com.cds.generated.inputs.RssItemInput
+import com.cds.generated.inputs.SourceInput
 import com.cds.itemkeeperadmin.clients.ItemKeeperClient
 import com.cds.itemkeeperadmin.models.RssItem
 import com.cds.itemkeeperadmin.models.Source
@@ -64,6 +65,10 @@ class ItemKeeperService(private val itemKeeperClient: ItemKeeperClient, private 
 
     fun createSource(name: String, link: String, configurationFilename: String): Source? {
         return modelMapper.map(itemKeeperClient.createSource(name, link, configurationFilename), Source::class.java)
+    }
+
+    fun updateSource(id: String, sourceInput: SourceInput): Source? {
+        return modelMapper.map(itemKeeperClient.updateSource(id, sourceInput), Source::class.java)
     }
 
     fun deleteSource(id: String): Source? {

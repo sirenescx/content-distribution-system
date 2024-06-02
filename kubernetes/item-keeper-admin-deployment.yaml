@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: item-keeper-admin
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: item-keeper-admin-app
+  template:
+    metadata:
+      labels:
+        app: item-keeper-admin-app
+    spec:
+      containers:
+        - env:
+            - name: GRAPHQL_CLIENT_URL
+              value: http://item-keeper:8080/graphql
+          image: mmanakhova/item-keeper-admin:latest
+          name: item-keeper-admin
+          ports:
+            - containerPort: 8081
+              hostPort: 8081
+              protocol: TCP
+      restartPolicy: Always
